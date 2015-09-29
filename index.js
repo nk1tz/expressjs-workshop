@@ -1,8 +1,19 @@
 var express = require('express');
 var app = express();
+var entries = {
+    1: {
+        firstName: 'John',
+        lastName: "Smith",
+        emails: [
+            {type: 'home', address: 'john@smith.com'},
+            {type: "work", address: "jsmith@megacorp.com"}
+        ]
+    }
+};
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
+app.get('/entry/:entryId', function (req, res) {
+  var entryNum = req.params.entryId;
+  res.send(entries[entryNum]);
 });
 
 
