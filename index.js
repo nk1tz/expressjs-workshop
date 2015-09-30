@@ -15,17 +15,19 @@ var server = app.listen(process.env.PORT, process.env.IP, function () {
 app.use(bodyParser());
 
 
-
 app.post('/entry', function (req, response) {
 
     console.log( req.body );
-    
-
+    var newEntry =  {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        emails: [
+            {type: 'home', address: req.body.emails[0].address},
+            {type: "work", address: req.body.emails[1].address}
+        ]
+    };
+    entries.push(newEntry);
 });
-
-
-
-
 
 
 
@@ -34,11 +36,9 @@ app.post('/entry', function (req, response) {
 app.get('/entry/:search', function (req, res) {
     
     var searchQuery = req.query;
-    console.log( entries[3].emails.forEach(function (el,index){ if(el.address.indexOf(searchQuery.lastName) >= 0) return true; } ) );
+    // console.log( entries[3].emails.forEach(function (el,index){ if(el.address.indexOf(searchQuery.lastName) >= 0) return true; } ) );
     
-    console.log(   entries[3].emails.forEach(  function(el,index){ return el.address.indexOf(searchQuery.lastName) }  )   );
-    // var name1 = searchParams.slice( searchParams.indexOf("=") + 1, searchParams.indexOf("&") - 1 );
-    // var name2 = searchParams.slice( searchParams.indexOf( "=", searchParams.indexOf("&") ) + 1, searchParams.length);
+    // console.log(   entries[3].emails.forEach(  function(el,index){ return el.address.indexOf(searchQuery.lastName) }  )   );
    
     var entryMatches = entries.filter(function(ele,ind){
         return ( searchQuery.firstName===ele.firstName || searchQuery.lastName===ele.lastName || searchQuery.firstName===ele.firstName || searchQuery.lastName===ele.lastName );
