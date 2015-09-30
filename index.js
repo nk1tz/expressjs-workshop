@@ -13,7 +13,12 @@ var entries = {
 
 app.get('/entry/:entryId', function (req, res) {
   var entryNum = req.params.entryId;
-  res.send(entries[entryNum]);
+  if(entries[entryNum]){
+    res.send(entries[entryNum]);
+  }
+  else{
+      res.send("Sorry, no entry for that ID exists!");
+  }
 });
 
 
